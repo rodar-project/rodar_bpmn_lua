@@ -1,0 +1,8 @@
+%{
+  "erlsom": {:hex, :erlsom, "1.5.2", "3e47c53a199136fb4d20d5479edb7c9229f31624534c062633951c8d14dcd276", [:rebar3], [], "hexpm", "4e765cc677fb30509f7b628ff2914e124cf4dcc0fac1c0a62ee4dcee24215b5d"},
+  "jason": {:hex, :jason, "1.4.4", "b9226785a9aa77b6857ca22832cffa5d5011a667207eb2a0ad56adb5db443b8a", [:mix], [{:decimal, "~> 1.0 or ~> 2.0", [hex: :decimal, repo: "hexpm", optional: true]}], "hexpm", "c5eb0cab91f094599f94d55bc63409236a8ec69a21a67814529e8d5f6cc90b3b"},
+  "luerl": {:hex, :luerl, "1.5.1", "f6700420950fc6889137e7a0c11c4a8467dea04a8c23f707a40d83566d14e786", [:rebar3], [], "hexpm", "abf88d849baa0d5dca93b245a8688d4de2ee3d588159bb2faf51e15946509390"},
+  "nimble_parsec": {:hex, :nimble_parsec, "1.4.2", "8efba0122db06df95bfaa78f791344a89352ba04baedd3849593bfce4d0dc1c6", [:mix], [], "hexpm", "4b21398942dda052b403bbe1da991ccd03a053668d147d53fb8c4e0efe09c973"},
+  "rodar_release": {:git, "https://github.com/rodar-project/rodar_release.git", "2874df37b8dc07004e3f7056fac1de59f404a62b", []},
+  "telemetry": {:hex, :telemetry, "1.4.1", "ab6de178e2b29b58e8256b92b382ea3f590a47152ca3651ea857a6cae05ac423", [:rebar3], [], "hexpm", "2172e05a27531d3d31dd9782841065c50dd5c3c7699d95266b2edd54c2dafa1c"},
+}
