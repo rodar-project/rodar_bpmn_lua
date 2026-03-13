@@ -150,7 +150,7 @@ Attempting to call a blocked function will result in an error.
 Set a maximum execution time (default: 5 seconds):
 
 ```elixir
-config :rodar_bpmn_lua, max_time: 10_000  # 10 seconds
+config :rodar_lua, max_time: 10_000  # 10 seconds
 ```
 
 ### Reduction Limit
@@ -158,7 +158,7 @@ config :rodar_bpmn_lua, max_time: 10_000  # 10 seconds
 Limit computational steps to prevent infinite loops (default: no limit):
 
 ```elixir
-config :rodar_bpmn_lua, max_reductions: 1_000_000
+config :rodar_lua, max_reductions: 1_000_000
 ```
 
 When either limit is exceeded, the script is terminated and

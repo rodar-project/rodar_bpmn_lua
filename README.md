@@ -1,9 +1,9 @@
-# RodarBpmn Lua
+# Rodar Lua
 
-Lua script engine adapter for [RodarBpmn](https://github.com/rodar-tech/rodar_bpmn).
+Lua script engine adapter for [Rodar](https://github.com/rodar-project/rodar).
 
 Enables Lua scripts in BPMN `<scriptTask>` elements by implementing the
-`RodarBpmn.Expression.ScriptEngine` behaviour. Uses
+`Rodar.Expression.ScriptEngine` behaviour. Uses
 [Luerl](https://github.com/rvirding/luerl) — a Lua 5.3 implementation in pure
 Erlang — as the runtime. No NIFs or external processes required.
 
@@ -12,7 +12,7 @@ Erlang — as the runtime. No NIFs or external processes required.
 Add to your `mix.exs`:
 
 ```elixir
-{:rodar_bpmn_lua, "~> 0.1.0"}
+{:rodar_lua, "~> 0.1.0"}
 ```
 
 ## Quick Start
@@ -21,7 +21,7 @@ Register the engine at application startup:
 
 ```elixir
 # In your Application.start/2 callback:
-RodarBpmn.Expression.ScriptRegistry.register("lua", RodarBpmnLua.Engine)
+Rodar.Expression.ScriptRegistry.register("lua", RodarLua.Engine)
 ```
 
 Then use `scriptFormat="lua"` in your BPMN diagrams:
@@ -40,11 +40,11 @@ return value is stored in the BPMN context under the configured output variable.
 Call the engine directly for ad-hoc evaluation:
 
 ```elixir
-{:ok, 3} = RodarBpmnLua.Engine.eval("return 1 + 2", %{})
+{:ok, 3} = RodarLua.Engine.eval("return 1 + 2", %{})
 
-{:ok, "hello"} = RodarBpmnLua.Engine.eval("return greeting", %{"greeting" => "hello"})
+{:ok, "hello"} = RodarLua.Engine.eval("return greeting", %{"greeting" => "hello"})
 
-{:ok, 10} = RodarBpmnLua.Engine.eval("return data.count * 2", %{
+{:ok, 10} = RodarLua.Engine.eval("return data.count * 2", %{
   "data" => %{"count" => 5}
 })
 ```
@@ -83,7 +83,7 @@ Safe functions like `string`, `table`, `math`, `os.time`, `os.date`,
 All settings are optional:
 
 ```elixir
-config :rodar_bpmn_lua,
+config :rodar_lua,
   max_time: 5_000,         # sandbox timeout in ms (default: 5_000)
   max_reductions: :none    # reduction limit (default: :none)
 ```

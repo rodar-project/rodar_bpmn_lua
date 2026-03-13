@@ -1,9 +1,9 @@
-defmodule RodarBpmnLua do
+defmodule RodarLua do
   @moduledoc """
-  Lua script engine adapter for [RodarBpmn](https://hexdocs.pm/rodar_bpmn).
+  Lua script engine adapter for [Rodar](https://hexdocs.pm/rodar).
 
   Enables Lua 5.3 scripts in BPMN `<scriptTask>` elements by implementing the
-  `RodarBpmn.Expression.ScriptEngine` behaviour. Uses
+  `Rodar.Expression.ScriptEngine` behaviour. Uses
   [Luerl](https://github.com/rvirding/luerl) (pure-Erlang Lua 5.3 interpreter)
   as the runtime — no NIFs or external processes required.
 
@@ -13,7 +13,7 @@ defmodule RodarBpmnLua do
   your BPMN diagrams:
 
       # In your Application.start/2 callback:
-      RodarBpmn.Expression.ScriptRegistry.register("lua", RodarBpmnLua.Engine)
+      Rodar.Expression.ScriptRegistry.register("lua", RodarLua.Engine)
 
   The engine receives the current process data as Lua globals and returns the
   script result back to the BPMN context:
@@ -26,7 +26,7 @@ defmodule RodarBpmnLua do
 
   All settings are optional and have sensible defaults:
 
-      config :rodar_bpmn_lua,
+      config :rodar_lua,
         max_time: 5_000,         # sandbox timeout in ms (default: 5_000)
         max_reductions: :none    # reduction limit (default: :none)
 

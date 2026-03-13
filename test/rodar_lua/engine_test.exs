@@ -1,7 +1,7 @@
-defmodule RodarBpmnLua.EngineTest do
+defmodule RodarLua.EngineTest do
   use ExUnit.Case, async: true
 
-  alias RodarBpmnLua.Engine
+  alias RodarLua.Engine
 
   describe "simple expressions" do
     test "integer arithmetic" do

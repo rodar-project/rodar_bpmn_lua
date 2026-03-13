@@ -1,14 +1,14 @@
-defmodule RodarBpmnLua.MixProject do
+defmodule RodarLua.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :rodar_bpmn_lua,
+      app: :rodar_lua,
       version: "0.1.0",
       elixir: "~> 1.16",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      description: "Lua script engine for RodarBpmn BPMN execution engine",
+      description: "Lua script engine for Rodar BPMN execution engine",
       package: package(),
       docs: docs()
     ]
@@ -37,7 +37,7 @@ defmodule RodarBpmnLua.MixProject do
 
   defp deps do
     [
-      {:rodar_bpmn, path: "../rodar_bpmn"},
+      {:rodar, path: "../rodar_bpmn"},
       {:rodar_release, github: "rodar-project/rodar_release", only: :dev, runtime: false},
       {:luerl, "~> 1.2"}
     ]
@@ -46,7 +46,7 @@ defmodule RodarBpmnLua.MixProject do
   defp package do
     [
       licenses: ["Apache-2.0"],
-      links: %{"GitHub" => "https://github.com/rodar-project/rodar_bpmn_lua"}
+      links: %{"GitHub" => "https://github.com/rodar-project/rodar_lua"}
     ]
   end
 end

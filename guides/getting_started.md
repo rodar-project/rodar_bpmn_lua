@@ -1,16 +1,16 @@
 # Getting Started
 
-This guide walks through setting up the Lua script engine for RodarBpmn.
+This guide walks through setting up the Lua script engine for Rodar.
 
 ## Installation
 
-Add `rodar_bpmn_lua` to your dependencies in `mix.exs`:
+Add `rodar_lua` to your dependencies in `mix.exs`:
 
 ```elixir
 defp deps do
   [
-    {:rodar_bpmn, "~> 1.0"},
-    {:rodar_bpmn_lua, "~> 0.1.0"}
+    {:rodar, "~> 1.0"},
+    {:rodar_lua, "~> 0.1.0"}
   ]
 end
 ```
@@ -23,7 +23,7 @@ mix deps.get
 
 ## Registration
 
-Register the Lua engine at application startup so that RodarBpmn can find it
+Register the Lua engine at application startup so that Rodar can find it
 when a `<scriptTask>` specifies `scriptFormat="lua"`:
 
 ```elixir
@@ -31,7 +31,7 @@ defmodule MyApp.Application do
   use Application
 
   def start(_type, _args) do
-    RodarBpmn.Expression.ScriptRegistry.register("lua", RodarBpmnLua.Engine)
+    Rodar.Expression.ScriptRegistry.register("lua", RodarLua.Engine)
 
     children = [
       # ... your supervision tree
@@ -63,7 +63,7 @@ Define a BPMN process with a Lua script task:
 Execute it with process data:
 
 ```elixir
-{:ok, context} = RodarBpmn.execute(process, %{"name" => "Alice"})
+{:ok, context} = Rodar.execute(process, %{"name" => "Alice"})
 ```
 
 The script receives `name` as a Lua global variable and returns
@@ -74,7 +74,7 @@ The script receives `name` as a Lua global variable and returns
 You can also call the engine directly outside of a BPMN process:
 
 ```elixir
-{:ok, 15} = RodarBpmnLua.Engine.eval("return x * y", %{"x" => 3, "y" => 5})
+{:ok, 15} = RodarLua.Engine.eval("return x * y", %{"x" => 3, "y" => 5})
 ```
 
 This is useful for testing scripts or integrating Lua evaluation in other

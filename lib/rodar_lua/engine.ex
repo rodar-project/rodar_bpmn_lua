@@ -1,6 +1,6 @@
-defmodule RodarBpmnLua.Engine do
+defmodule RodarLua.Engine do
   @moduledoc """
-  Core engine implementing `RodarBpmn.Expression.ScriptEngine` for Lua.
+  Core engine implementing `Rodar.Expression.ScriptEngine` for Lua.
 
   Evaluates Lua 5.3 scripts in a sandboxed Luerl state. The BPMN process data
   map is injected as Lua globals, the script executes, and the first return
@@ -22,20 +22,20 @@ defmodule RodarBpmnLua.Engine do
 
   ## Examples
 
-      iex> RodarBpmnLua.Engine.eval("return 1 + 2", %{})
+      iex> RodarLua.Engine.eval("return 1 + 2", %{})
       {:ok, 3}
 
-      iex> RodarBpmnLua.Engine.eval("return greeting", %{"greeting" => "hello"})
+      iex> RodarLua.Engine.eval("return greeting", %{"greeting" => "hello"})
       {:ok, "hello"}
 
-      iex> RodarBpmnLua.Engine.eval("return data.count * 2", %{"data" => %{"count" => 5}})
+      iex> RodarLua.Engine.eval("return data.count * 2", %{"data" => %{"count" => 5}})
       {:ok, 10}
 
-      iex> RodarBpmnLua.Engine.eval("return ??bad", %{})
+      iex> RodarLua.Engine.eval("return ??bad", %{})
       {:error, _reason}
   """
 
-  @behaviour RodarBpmn.Expression.ScriptEngine
+  @behaviour Rodar.Expression.ScriptEngine
 
   @default_max_time 5_000
   @default_max_reductions :none
@@ -53,13 +53,13 @@ defmodule RodarBpmnLua.Engine do
 
   ## Examples
 
-      iex> RodarBpmnLua.Engine.eval("return a + b", %{"a" => 3, "b" => 4})
+      iex> RodarLua.Engine.eval("return a + b", %{"a" => 3, "b" => 4})
       {:ok, 7}
 
-      iex> RodarBpmnLua.Engine.eval("return {1, 2, 3}", %{})
+      iex> RodarLua.Engine.eval("return {1, 2, 3}", %{})
       {:ok, [1, 2, 3]}
 
-      iex> RodarBpmnLua.Engine.eval("error('boom')", %{})
+      iex> RodarLua.Engine.eval("error('boom')", %{})
       {:error, _reason}
   """
   @impl true
@@ -139,10 +139,10 @@ defmodule RodarBpmnLua.Engine do
   defp format_error(reason), do: inspect(reason)
 
   defp max_time do
-    Application.get_env(:rodar_bpmn_lua, :max_time, @default_max_time)
+    Application.get_env(:rodar_lua, :max_time, @default_max_time)
   end
 
   defp max_reductions do
-    Application.get_env(:rodar_bpmn_lua, :max_reductions, @default_max_reductions)
+    Application.get_env(:rodar_lua, :max_reductions, @default_max_reductions)
   end
 end
