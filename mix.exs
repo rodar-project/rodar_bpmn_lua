@@ -23,6 +23,8 @@ defmodule RodarLua.MixProject do
   defp docs do
     [
       main: "readme",
+      source_url: "https://github.com/rodar-project/rodar_lua",
+      homepage_url: "https://hexdocs.pm/rodar_lua",
       extras: [
         "README.md",
         "CHANGELOG.md",
@@ -31,6 +33,9 @@ defmodule RodarLua.MixProject do
       ],
       groups_for_extras: [
         Guides: ~r/guides\/.*/
+      ],
+      groups_for_modules: [
+        Core: [RodarLua, RodarLua.Engine]
       ]
     ]
   end
@@ -39,7 +44,8 @@ defmodule RodarLua.MixProject do
     [
       {:rodar, "~> 1.4"},
       {:rodar_release, "~> 1.2", only: :dev, runtime: false},
-      {:luerl, "~> 1.2"}
+      {:luerl, "~> 1.2"},
+      {:ex_doc, "~> 0.36", only: :dev, runtime: false}
     ]
   end
 
