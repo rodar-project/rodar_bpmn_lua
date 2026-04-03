@@ -106,24 +106,80 @@ defmodule RodarLua.EngineTest do
   end
 
   describe "sandboxing" do
-    test "os.execute is blocked" do
-      assert {:ok, result} = Engine.eval("return os.execute", %{})
-      assert result != nil or result == nil
+    describe "dangerous operations are blocked" do
+      test "os.execute is blocked" do
+        assert {:error, reason} = Engine.eval("os.execute('ls')", %{})
+        assert is_binary(reason)
+      end
+
+      test "io.open is blocked" do
+        assert {:error, reason} = Engine.eval("io.open('/etc/passwd', 'r')", %{})
+        assert is_binary(reason)
+      end
+
+      test "require is blocked" do
+        assert {:error, reason} = Engine.eval("require('os')", %{})
+        assert is_binary(reason)
+      end
+
+      test "loadfile is blocked" do
+        assert {:error, reason} = Engine.eval("loadfile('/etc/passwd')", %{})
+        assert is_binary(reason)
+      end
+
+      test "dofile is blocked" do
+        assert {:error, reason} = Engine.eval("dofile('/etc/passwd')", %{})
+        assert is_binary(reason)
+      end
+
+      test "load is blocked" do
+        assert {:error, reason} = Engine.eval("load('return os')()", %{})
+        assert is_binary(reason)
+      end
     end
 
-    test "io.open is blocked" do
-      assert {:ok, result} = Engine.eval("return io", %{})
-      refute is_map(result) and map_size(result) > 0
+    describe "dangerous os functions are blocked" do
+      test "os.getenv is blocked" do
+        assert {:error, reason} = Engine.eval("return os.getenv('HOME')", %{})
+        assert is_binary(reason)
+      end
+
+      test "os.remove is blocked" do
+        assert {:error, reason} = Engine.eval("return os.remove('/tmp/test')", %{})
+        assert is_binary(reason)
+      end
+
+      test "os.rename is blocked" do
+        assert {:error, reason} = Engine.eval("return os.rename('/tmp/a', '/tmp/b')", %{})
+        assert is_binary(reason)
+      end
+
+      test "os.tmpname is blocked" do
+        assert {:error, reason} = Engine.eval("return os.tmpname()", %{})
+        assert is_binary(reason)
+      end
     end
 
-    test "require is blocked" do
-      assert {:ok, result} = Engine.eval("return require", %{})
-      refute is_function(result)
-    end
+    describe "safe os functions remain available" do
+      test "os.time is available" do
+        assert {:ok, result} = Engine.eval("return os.time()", %{})
+        assert is_integer(result)
+      end
 
-    test "loadfile is blocked" do
-      assert {:ok, result} = Engine.eval("return loadfile", %{})
-      refute is_function(result)
+      test "os.date is available" do
+        assert {:ok, result} = Engine.eval("return os.date()", %{})
+        assert is_binary(result)
+      end
+
+      test "os.clock is available" do
+        assert {:ok, result} = Engine.eval("return os.clock()", %{})
+        assert is_number(result)
+      end
+
+      test "os.difftime is available" do
+        assert {:ok, result} = Engine.eval("return os.difftime(os.time(), os.time())", %{})
+        assert is_number(result)
+      end
     end
   end
 

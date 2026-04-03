@@ -66,6 +66,7 @@ defmodule RodarLua.Engine do
   @spec eval(String.t(), map()) :: {:ok, any()} | {:error, any()}
   def eval(script, bindings) when is_binary(script) and is_map(bindings) do
     state = :luerl_sandbox.init()
+    state = remove_dangerous_os_functions(state)
     state = inject_bindings(bindings, state)
 
     flags = [
@@ -86,6 +87,16 @@ defmodule RodarLua.Engine do
   catch
     kind, reason when kind in [:error, :exit, :throw] ->
       {:error, format_error(reason)}
+  end
+
+  @dangerous_os_functions ["getenv", "remove", "rename", "tmpname"]
+
+  defp remove_dangerous_os_functions(state) do
+    Enum.reduce(@dangerous_os_functions, state, fn func, st ->
+      {nil_val, st} = :luerl.encode(nil, st)
+      {:ok, st} = :luerl.set_table_keys(["os", func], nil_val, st)
+      st
+    end)
   end
 
   defp inject_bindings(bindings, state) do
