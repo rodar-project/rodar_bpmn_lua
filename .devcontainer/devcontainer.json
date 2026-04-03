@@ -1,0 +1,15 @@
+{
+  "name": "Rodar Lua",
+  "image": "hexpm/elixir:1.18.3-erlang-27.3.3-ubuntu-noble-20250127",
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {}
+  },
+  "postCreateCommand": "mix local.hex --force && mix local.rebar --force && mix deps.get",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "JakeBecker.elixir-ls"
+      ]
+    }
+  }
+}
